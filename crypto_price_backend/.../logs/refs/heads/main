@@ -1,0 +1,3 @@
+0000000000000000000000000000000000000000 9c409598f8798dfedc22b81ef3f480dc27375b5e Aisen Kim <aisenkim15@gmail.com> 1635372365 -0400	clone: from https://github.com/aisenkim/crypto_price_backend.git
+9c409598f8798dfedc22b81ef3f480dc27375b5e 4d092d0c73f3ed63627e56712edeb47e0e804480 Aisen Kim <aisenkim15@gmail.com> 1635392178 -0400	commit: implemented kraken api and blockchain api to get buyerprice and seller price
+4d092d0c73f3ed63627e56712edeb47e0e804480 36be7e110b6abb58b0c5f2252ab1d23f3b05f851 Aisen Kim <aisenkim15@gmail.com> 1635392193 -0400	commit: implemented kraken api and blockchain api to get buyerprice and seller price
