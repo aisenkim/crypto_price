@@ -19,6 +19,7 @@ public class KrakenExchangeService implements ExchangeService {
     @Autowired
     private RestTemplate restTemplate;
 
+    // TODO - NEED TO CHANGE THE API FROM TICKER TO GET RECENT TRADES
     @Override
     public String getPrice(String coinSymbol) {
         URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Ticker?pair=" + coinSymbol + "USD");
