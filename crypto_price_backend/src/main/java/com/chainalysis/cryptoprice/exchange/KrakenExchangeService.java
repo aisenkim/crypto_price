@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,20 +20,39 @@ public class KrakenExchangeService implements ExchangeService {
     @Autowired
     private RestTemplate restTemplate;
 
-    // TODO - NEED TO CHANGE THE API FROM TICKER TO GET RECENT TRADES
+    /**
+     * Getting price from recent 1000 trades
+     */
     @Override
     public String getPrice(String coinSymbol) {
-        URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Ticker?pair=" + coinSymbol + "USD");
+        URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Trades?pair=" + coinSymbol + "USD&since=" + new Timestamp(System.currentTimeMillis()));
         String result = restTemplate.getForObject(price, String.class);
 
         JSONObject resultObj = new JSONObject(result);
 
         JSONArray lastSoldPriceArr = resultObj.getJSONObject("result")
-                .getJSONObject("X" + coinSymbol + "ZUSD")
-                .getJSONArray("c");
+                .getJSONArray("X" + coinSymbol + "ZUSD")
+                .getJSONArray(0);
 
         return lastSoldPriceArr.getString(0);
     }
+
+    /**
+     * Getting price from Ticker
+     */
+//    @Override
+//    public String getPrice(String coinSymbol) {
+//        URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Ticker?pair=" + coinSymbol + "USD");
+//        String result = restTemplate.getForObject(price, String.class);
+//
+//        JSONObject resultObj = new JSONObject(result);
+//
+//        JSONArray lastSoldPriceArr = resultObj.getJSONObject("result")
+//                .getJSONObject("X" + coinSymbol + "ZUSD")
+//                .getJSONArray("c");
+//
+//        return lastSoldPriceArr.getString(0);
+//    }
 
     @Override
     public Map<String, String> getFees(String coinSymbol) {
@@ -51,8 +71,11 @@ public class KrakenExchangeService implements ExchangeService {
                 .getJSONArray("fees_maker")
                 .get(0);
 
-        fees.put("takerFees", String.valueOf(takerFees.get(1)));
-        fees.put("makerFees", String.valueOf(makerFees.get(1)));
+        String takerFeePercent = ExchangeService.convertPercentToDecimal(new BigDecimal(takerFees.get(1).toString()));
+        String makerFeePercent = ExchangeService.convertPercentToDecimal(new BigDecimal(makerFees.get(1).toString()));
+
+        fees.put("takerFees", takerFeePercent);
+        fees.put("makerFees", makerFeePercent);
 
         return fees;
     }
@@ -60,7 +83,7 @@ public class KrakenExchangeService implements ExchangeService {
     @Override
     public Map<String, String> getBuySellPrice(String coinSymbol) {
         // Kraken uses different symbol
-        if(coinSymbol.equals("BTC")) {
+        if (coinSymbol.equals("BTC")) {
             coinSymbol = "XBT";
         }
 

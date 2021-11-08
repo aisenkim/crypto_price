@@ -32,6 +32,10 @@ public interface ExchangeService {
         return decimalFormat.format(price.add(feePrice));
     }
 
+    static String convertPercentToDecimal(BigDecimal fees) {
+        return fees.divide(new BigDecimal("100") ).toString();
+    }
+
     /**
      * API call to retrieve last trade closed coin value
      *
