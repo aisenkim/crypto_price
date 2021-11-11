@@ -18,13 +18,17 @@ public class BlockchainExchangeService implements ExchangeService {
     @Override
     public String getPrice(String coinSymbol) {
         URI price = ExchangeService.buildURI("https://api.blockchain.com/v3/exchange/tickers/" + coinSymbol + "-USD");
-        String result = restTemplate.getForObject(price, String.class);
+        try {
+            String result = restTemplate.getForObject(price, String.class);
 
-        JSONObject resultObj = new JSONObject(result);
+            JSONObject resultObj = new JSONObject(result);
 
-        BigDecimal lastTradePrice = (BigDecimal) resultObj.get("last_trade_price");
+            BigDecimal lastTradePrice = (BigDecimal) resultObj.get("last_trade_price");
 
-        return lastTradePrice.toString();
+            return lastTradePrice.toString();
+        } catch(Exception e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     /**

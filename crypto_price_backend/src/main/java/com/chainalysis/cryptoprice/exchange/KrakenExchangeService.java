@@ -18,12 +18,12 @@ public class KrakenExchangeService implements ExchangeService {
     @Autowired
     private RestTemplate restTemplate;
 
-//    /**
+    //    /**
 //     * Getting price from recent 1000 trades
 //     */
     @Override
     public String getPrice(String coinSymbol) {
-        URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Trades?pair=" + coinSymbol + "US&since=" + new Timestamp(System.currentTimeMillis()));
+        URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Trades?pair=" + coinSymbol + "USD&since=" + new Timestamp(System.currentTimeMillis()));
         String result = restTemplate.getForObject(price, String.class);
 
         JSONObject resultObj = new JSONObject(result);
@@ -31,7 +31,7 @@ public class KrakenExchangeService implements ExchangeService {
         JSONArray errorArr = resultObj.getJSONArray("error");
 
         // check if error exist from api call
-        if(!errorArr.isEmpty()) {
+        if (!errorArr.isEmpty()) {
             System.out.println("Error Message: " + errorArr.get(0));
             throw new IllegalArgumentException(errorArr.get(0).toString());
         }
@@ -49,7 +49,16 @@ public class KrakenExchangeService implements ExchangeService {
         URI krakenFeesUri = ExchangeService.buildURI("https://api.kraken.com/0/public/AssetPairs?pair=X" + coinSymbol + "ZUSD");
         String result = restTemplate.getForObject(krakenFeesUri, String.class);
 
-        JSONObject feesObj = new JSONObject(result)
+        JSONObject resultObj = new JSONObject(result);
+
+        // check if error exist from api call
+        JSONArray errorArr = resultObj.getJSONArray("error");
+        if (!errorArr.isEmpty()) {
+            System.out.println("Error Message: " + errorArr.get(0));
+            throw new IllegalArgumentException(errorArr.get(0).toString());
+        }
+
+        JSONObject feesObj = resultObj
                 .getJSONObject("result")
                 .getJSONObject("X" + coinSymbol + "ZUSD");
 
@@ -67,6 +76,7 @@ public class KrakenExchangeService implements ExchangeService {
         fees.put("makerFees", makerFeePercent);
 
         return fees;
+
     }
 
     @Override
