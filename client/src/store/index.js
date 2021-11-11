@@ -87,10 +87,11 @@ export const useGlobalStore = () => {
     // Load default coin price of two exchanges on landing page
     store.onLoadExchanges = function (exchangeOne = "kraken", coinSymbolOne = "BTC", exchangeTwo = "blockchain", coinSymbolTwo = "BTC") {
         async function asyncOnLoadExchange() {
-            const firstExchange = await api.getBuySellPrice(exchangeOne, coinSymbolOne);
-            const secondExchange = await api.getBuySellPrice(exchangeTwo, coinSymbolTwo);
+            try {
+                const firstExchange = await api.getBuySellPrice(exchangeOne, coinSymbolOne);
+                const secondExchange = await api.getBuySellPrice(exchangeTwo, coinSymbolTwo);
 
-            if (firstExchange.status === 200 && firstExchange.data && secondExchange.status === 200 && secondExchange.data) {
+
                 const firstExchangePayload = {
                     "exchange": exchangeOne,
                     "coin": coinSymbolOne,
@@ -113,9 +114,10 @@ export const useGlobalStore = () => {
                         coinSymbolTwo
                     }
                 })
-            } else {
-                console.log("API FAILED TO GET BUY SELL PRICE")
+            } catch (err) {
+                console.log(err);
             }
+
         }
 
         asyncOnLoadExchange();

@@ -4,6 +4,7 @@ import {useHistory} from "react-router-dom";
 import useWindowPosition from "../hook/useWindowPosition";
 import ImageCard from "./ImageCard";
 import {styled} from "@mui/system";
+import {Grid} from "@mui/material";
 
 const StyledContainer = styled('div')`
   min-height: 100vh;
@@ -35,14 +36,17 @@ const CoinPrice = () => {
     let buyPrice = "";
     if (store) {
         buyPrice = store.loadedExchanges.map((data, idx) => (
-            <ImageCard key={idx} checked={checked} data={data} cardIdx={idx}/>
+            <Grid key={idx} item xs={12} sm={6}>
+                <ImageCard key={idx} checked={checked} data={data} cardIdx={idx}/>
+            </Grid>
         ))
     }
 
     return (
-
         <StyledContainer id="place-to-visit">
-            {buyPrice}
+            <Grid container >
+                {buyPrice}
+            </Grid>
         </StyledContainer>
     )
 }

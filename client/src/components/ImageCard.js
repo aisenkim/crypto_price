@@ -9,7 +9,7 @@ import {styled} from "@mui/system";
 import {GlobalStoreContext} from "../store";
 
 const CardStyled = styled(Card)`
-  max-width: 645px;
+  //max-width: 645px;
   background: rgba(0, 0, 0, 0.5);
   margin: 3vw;
 `
@@ -22,13 +22,14 @@ const ExchangeName = styled(Typography)`
   font-family: Nunito, sans-serif;
   font-weight: bold;
   font-size: 2rem;
-  color: #fff;
+  color: #5AFF3D;
 `
 
 const PriceTypography = styled(Typography)`
   font-family: Nunito, sans-serif;
   font-weight: bold;
   font-size: 1.5rem;
+  color: #fff;
 `
 
 
