@@ -1,4 +1,4 @@
-package com.chainalysis.cryptoprice.exchange;
+package com.chainalysis.cryptoprice.exchange.before_refactor;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -8,9 +8,7 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 public interface ExchangeService {
-    static String convertPercentToDecimal(BigDecimal fees) {
-        return fees.divide(new BigDecimal("100")).toString();
-    }
+
 
     /**
      * API call to retrieve last trade closed coin value

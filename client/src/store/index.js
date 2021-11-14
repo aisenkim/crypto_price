@@ -115,9 +115,8 @@ export const useGlobalStore = () => {
                     }
                 })
             } catch (err) {
-                console.log(err);
+                console.log(err.response.data);
             }
-
         }
 
         asyncOnLoadExchange();

@@ -2,6 +2,8 @@ package com.chainalysis.cryptoprice.utility;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.text.DecimalFormat;
@@ -35,5 +37,18 @@ public class ExchangeUtility {
         return builder.build().encode().toUri();
     }
 
+    public static String convertPercentToDecimal(BigDecimal fees) {
+        return fees.divide(new BigDecimal("100")).toString();
+    }
+
+    public static <T> String getJson(String path, Class<T> testClass) {
+        try {
+            InputStream jsonStream = testClass.getClassLoader().getResourceAsStream(path);
+            assert jsonStream != null;
+            return new String(jsonStream.readAllBytes());
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
 }

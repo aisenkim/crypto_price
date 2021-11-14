@@ -1,5 +1,6 @@
-package com.chainalysis.cryptoprice.exchange;
+package com.chainalysis.cryptoprice.exchange.before_refactor;
 
+import com.chainalysis.cryptoprice.exchange.before_refactor.ExchangeService;
 import com.chainalysis.cryptoprice.utility.ExchangeUtility;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -76,8 +77,8 @@ public class KrakenExchangeService implements ExchangeService {
                 .getJSONArray("fees_maker")
                 .get(0);
 
-        String takerFeePercent = ExchangeService.convertPercentToDecimal(new BigDecimal(takerFees.get(1).toString()));
-        String makerFeePercent = ExchangeService.convertPercentToDecimal(new BigDecimal(makerFees.get(1).toString()));
+        String takerFeePercent =ExchangeUtility.convertPercentToDecimal(new BigDecimal(takerFees.get(1).toString()));
+        String makerFeePercent =ExchangeUtility.convertPercentToDecimal(new BigDecimal(makerFees.get(1).toString()));
 
         fees.put("takerFees", takerFeePercent);
         fees.put("makerFees", makerFeePercent);

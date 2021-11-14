@@ -1,4 +1,4 @@
-package com.chainalysis.cryptoprice.exchange;
+package com.chainalysis.cryptoprice.exchange.response;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,9 +9,9 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 @Data
-public class KrakenExchangeResponse {
-    @JsonAlias("result")
-    private Map<String, Object> result;
+public class KrakenGetPriceResponse {
+//    @JsonAlias("result")
+//    private Map<String, Object> result;
 
     @JsonAlias("error")
     private ArrayList<String> error;
