@@ -1,9 +1,9 @@
-package com.chainalysis.cryptoprice.exchange;
+package com.chainalysis.cryptoprice.exchange.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "kraken-api")
-public class KrakenExchangeProperties {
+@ConfigurationProperties(prefix = "blockchain-api")
+public class BlockchainExchangeProperties {
     private String baseUrl;
 
     public String getBaseUrl() {

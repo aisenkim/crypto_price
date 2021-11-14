@@ -1,5 +1,6 @@
 package com.chainalysis.cryptoprice.exchange;
 
+import com.chainalysis.cryptoprice.exchange.properties.KrakenExchangeProperties;
 import com.chainalysis.cryptoprice.utility.ExchangeUtility;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -9,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.math.BigDecimal;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

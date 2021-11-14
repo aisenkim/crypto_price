@@ -15,7 +15,7 @@ import java.util.Map;
 public class ExchangeController {
 
     private final KrakenExchangeClient krakenExchangeClient;
-    private final BlockchainExchangeService blockchainExchangeService;
+    private final BlockchainExchangeClient blockchainExchangeClient;
 
 
     @GetMapping
@@ -28,7 +28,7 @@ public class ExchangeController {
             if (exchange.equals("kraken"))
                 return ResponseEntity.ok().body(krakenExchangeClient.getBuySellPrice(coinSymbol));
             else
-                return ResponseEntity.ok().body(blockchainExchangeService.getBuySellPrice(coinSymbol));
+                return ResponseEntity.ok().body(blockchainExchangeClient.getBuySellPrice(coinSymbol));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", e.getMessage()));
         }
@@ -39,7 +39,7 @@ public class ExchangeController {
      */
     @GetMapping("/getPrice")
     public ResponseEntity<String> getPrice(@RequestParam String coinSymbol) {
-        return ResponseEntity.ok().body(krakenExchangeClient.getPrice(coinSymbol));
+        return ResponseEntity.ok().body(blockchainExchangeClient.getPrice(coinSymbol));
     }
 
     /**

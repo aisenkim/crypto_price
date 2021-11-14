@@ -1,5 +1,6 @@
 package com.chainalysis.cryptoprice.exchange;
 
+import com.chainalysis.cryptoprice.exchange.properties.KrakenExchangeProperties;
 import com.chainalysis.cryptoprice.exchange.response.KrakenGetFeesResponse;
 import com.chainalysis.cryptoprice.exchange.response.KrakenGetPriceResponse;
 import com.chainalysis.cryptoprice.utility.ExchangeUtility;
