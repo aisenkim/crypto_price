@@ -1,5 +1,6 @@
 package com.chainalysis.cryptoprice.exchange;
 
+import com.chainalysis.cryptoprice.utility.ExchangeUtility;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class BlockchainExchangeService implements ExchangeService {
 
     @Override
     public String getPrice(String coinSymbol) {
-        URI price = ExchangeService.buildURI("https://api.blockchain.com/v3/exchange/tickers/" + coinSymbol + "-USD");
+        URI price = ExchangeUtility.buildURI("https://api.blockchain.com/v3/exchange/tickers/" + coinSymbol + "-USD");
         try {
             String result = restTemplate.getForObject(price, String.class);
 
@@ -50,8 +51,8 @@ public class BlockchainExchangeService implements ExchangeService {
         BigDecimal buyersFee = new BigDecimal(fees.get("takerFees"));
         BigDecimal sellersFee = new BigDecimal(fees.get("makerFees"));
 
-        String buyPrice = ExchangeService.calculatePrice(price, buyersFee);
-        String sellPrice = ExchangeService.calculatePrice(price, sellersFee);
+        String buyPrice = ExchangeUtility.calculatePrice(price, buyersFee);
+        String sellPrice =  ExchangeUtility.calculatePrice(price, sellersFee);
 
         return Map.of(
                 "buyPrice", buyPrice,

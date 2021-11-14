@@ -8,32 +8,8 @@ import java.text.DecimalFormat;
 import java.util.Map;
 
 public interface ExchangeService {
-    /**
-     * Convert URL to URI
-     *
-     * @param url - API URL
-     * @return API in URI format
-     */
-    static URI buildURI(String url) {
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(url);
-        return builder.build().encode().toUri();
-    }
-
-    /**
-     * Calculates price with fees combined
-     *
-     * @param price - featured coin price
-     * @param fees  - adding a makers or takers fee
-     * @return - total price in String format
-     */
-    static String calculatePrice(BigDecimal price, BigDecimal fees) {
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        BigDecimal feePrice = price.multiply(fees);
-        return decimalFormat.format(price.add(feePrice));
-    }
-
     static String convertPercentToDecimal(BigDecimal fees) {
-        return fees.divide(new BigDecimal("100") ).toString();
+        return fees.divide(new BigDecimal("100")).toString();
     }
 
     /**

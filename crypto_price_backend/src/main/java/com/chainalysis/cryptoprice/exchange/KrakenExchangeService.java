@@ -1,5 +1,6 @@
 package com.chainalysis.cryptoprice.exchange;
 
+import com.chainalysis.cryptoprice.utility.ExchangeUtility;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +16,21 @@ import java.util.Map;
 @Service
 public class KrakenExchangeService implements ExchangeService {
 
-    @Autowired
+    //    @Autowired
+    //    private RestTemplate restTemplate;
     private RestTemplate restTemplate;
+
+    @Autowired
+    public KrakenExchangeService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     //    /**
 //     * Getting price from recent 1000 trades
 //     */
     @Override
     public String getPrice(String coinSymbol) {
-        URI price = ExchangeService.buildURI("https://api.kraken.com/0/public/Trades?pair=" + coinSymbol + "USD&since=" + new Timestamp(System.currentTimeMillis()));
+        URI price = ExchangeUtility.buildURI("https://api.kraken.com/0/public/Trades?pair=" + coinSymbol + "USD&since=" + new Timestamp(System.currentTimeMillis()));
         String result = restTemplate.getForObject(price, String.class);
 
         JSONObject resultObj = new JSONObject(result);
@@ -46,7 +53,7 @@ public class KrakenExchangeService implements ExchangeService {
     @Override
     public Map<String, String> getFees(String coinSymbol) {
         Map<String, String> fees = new HashMap<>();
-        URI krakenFeesUri = ExchangeService.buildURI("https://api.kraken.com/0/public/AssetPairs?pair=X" + coinSymbol + "ZUSD");
+        URI krakenFeesUri = ExchangeUtility.buildURI("https://api.kraken.com/0/public/AssetPairs?pair=X" + coinSymbol + "ZUSD");
         String result = restTemplate.getForObject(krakenFeesUri, String.class);
 
         JSONObject resultObj = new JSONObject(result);
@@ -92,8 +99,8 @@ public class KrakenExchangeService implements ExchangeService {
         BigDecimal buyersFee = new BigDecimal(fees.get("takerFees"));
         BigDecimal sellersFee = new BigDecimal(fees.get("makerFees"));
 
-        String buyPrice = ExchangeService.calculatePrice(price, buyersFee);
-        String sellPrice = ExchangeService.calculatePrice(price, sellersFee);
+        String buyPrice = ExchangeUtility.calculatePrice(price, buyersFee);
+        String sellPrice = ExchangeUtility.calculatePrice(price, sellersFee);
 
         return Map.of(
                 "buyPrice", buyPrice,
