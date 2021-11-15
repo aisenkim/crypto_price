@@ -63,7 +63,7 @@ const Landing = () => {
                         Welcome to <br/> Coin{" "}
                         <span className={classes.colorText}>Prices</span>
                     </h1>
-                    <Scroll to="place-to-visit" smooth={true}>
+                    <Scroll to="coin-price" smooth={true}>
                         <IconButton>
                             <ExpandMoreIcon className={classes.goDown}/>
                         </IconButton>

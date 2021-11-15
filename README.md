@@ -37,10 +37,7 @@ DevOps → **Docker**
     # build .jar file
     ./mvnw clean instal
     
-    # build it
-    docker-compose build
-    
-    # running it in detatched mode
+    # running it in detached mode
     docker-compose up -d
     ```
 

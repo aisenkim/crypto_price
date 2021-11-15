@@ -2,6 +2,7 @@ import Landing from "./Landing";
 import {CoinPrice} from "./index";
 import React from "react";
 import {styled} from "@mui/system";
+import Recommendation from "./Recommendation";
 
 const StyledContainer = styled('div')`
   min-height: 100vh;
@@ -15,6 +16,7 @@ const HomePage = () => {
         <StyledContainer>
             <Landing/>
             <CoinPrice/>
+            <Recommendation/>
         </StyledContainer>
     )
 }

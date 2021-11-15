@@ -11,7 +11,7 @@ export const GlobalStoreContext = createContext({});
 
 export const GlobalStoreActionType = {
     LOAD_PRICE: "LOAD_PRICE",
-    ON_LOAD_EXCHANGES: "ON_LOAD_EXCHANGES"
+    ON_LOAD_EXCHANGES: "ON_LOAD_EXCHANGES",
 }
 
 // MAKING IT AVAILABLE TO THE REST OF
@@ -30,7 +30,7 @@ export const useGlobalStore = () => {
             exchangeOne: "kraken",
             exchangeTwo: "blockchain",
             coinSymbolOne: "BTC",
-            coinSymbolTwo: "BTC"
+            coinSymbolTwo: "BTC",
         })
 
     // REDUCER -> HANDLE EVERY TYPE OF STATE CHANGES
@@ -115,7 +115,7 @@ export const useGlobalStore = () => {
                     }
                 })
             } catch (err) {
-                console.log(err.response.data);
+                console.log(err);
             }
         }
 

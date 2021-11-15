@@ -1,10 +1,14 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {GlobalStoreContext} from "../store";
 import {useHistory} from "react-router-dom";
 import useWindowPosition from "../hook/useWindowPosition";
 import ImageCard from "./ImageCard";
 import {styled} from "@mui/system";
-import {Grid} from "@mui/material";
+import {Grid, IconButton} from "@mui/material";
+import {makeStyles} from "@mui/styles";
+import {Collapse} from "@material-ui/core";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import {Link as Scroll} from "react-scroll";
 
 const StyledContainer = styled('div')`
   min-height: 100vh;
@@ -13,14 +17,47 @@ const StyledContainer = styled('div')`
   align-items: center;
 `
 
-const CoinPrice = () => {
-    const checked = useWindowPosition("landing");
+const useStyles = makeStyles({
+    appbar: {
+        background: "none",
+    },
+    appbarTitle: {
+        flexGrow: "1",
+    },
+    appbarWrapper: {
+        width: "80%",
+        margin: "0 auto",
+    },
+    icon: {
+        color: "#fff",
+        fontSize: "2rem",
+    },
+    colorText: {
+        color: "#5AFF3D",
+    },
+    title: {
+        color: "#fff",
+        fontSize: "4.5rem",
+    },
+    container: {
+        textAlign: "center",
+    },
+    goDown: {
+        color: "#5AFF3D",
+        fontSize: ["4rem", "!important"],
+    },
+});
 
+const CoinPrice = () => {
+    const classes = useStyles();
+    const checked = useWindowPosition("landing");
+    const [isChecked, setIsChecked] = useState(false);
     const {store} = useContext(GlobalStoreContext)
     store.history = useHistory();
 
     useEffect(() => {
         store.onLoadExchanges();
+        setIsChecked(true);
     }, []);
 
 
@@ -43,10 +80,23 @@ const CoinPrice = () => {
     }
 
     return (
-        <StyledContainer id="place-to-visit">
-            <Grid container >
-                {buyPrice}
-            </Grid>
+        <StyledContainer id="coin-price">
+            {/*<Collapse*/}
+            {/*    in={checked}*/}
+            {/*    {...(checked ? {timeout: 1000} : {})}*/}
+            {/*    collapsedSize={50}*/}
+            {/*>*/}
+                <div className={classes.container}>
+                    <Grid container>
+                        {buyPrice}
+                    </Grid>
+                    <Scroll to="recommendation" smooth={true}>
+                        <IconButton>
+                            <ExpandMoreIcon className={classes.goDown}/>
+                        </IconButton>
+                    </Scroll>
+                </div>
+            {/*</Collapse>*/}
         </StyledContainer>
     )
 }
