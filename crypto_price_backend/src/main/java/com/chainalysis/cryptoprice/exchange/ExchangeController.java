@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/v1/exchanges")
 @RequiredArgsConstructor
 public class ExchangeController {
@@ -19,7 +20,6 @@ public class ExchangeController {
 
 
     @GetMapping
-    @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<Map<String, String>> getBuySellPrice(
             @RequestParam String exchange,
             @RequestParam String coinSymbol

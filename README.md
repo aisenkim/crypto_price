@@ -28,7 +28,24 @@ DevOps → **Docker**
 - Docker
 - npm
 
-### Starting Backend Application
+
+### Starting Backend Application (METHOD 1)
+Method 1: Pull image from docker hub
+
+1. Visit : https://hub.docker.com/r/aisenkim15/crypto_backend/tags 
+2. Pull the docker image to local machine
+3. Run the following commands
+
+    ```bash
+      # View the images 
+      docker ls
+   
+      # Start the backend application
+      docker run -p 8080:8080 aisenkim15/crypto_backend
+    ```
+
+### Starting Backend Application (METHOD 2)
+Method 2: build jarfile and use docker-compose
 
 1. Navigate to the root of the project and go into the "crypto_price_backend" directory.
 2. Run the following commands
